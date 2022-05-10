@@ -10,6 +10,13 @@
             "className": "IText",
             "comType": "common",
             "comLangue": "vue"
+        },
+        {
+            "classId": "idm.componet.workbench.dataSourceMenu",
+            "comName": "数据源菜单",
+            "className": "DataSourceMenu",
+            "comType": "common",
+            "comLangue": "vue"
         }
     ]
 }
