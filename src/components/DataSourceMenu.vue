@@ -272,7 +272,11 @@ export default {
      * 加载基本属性
      */
     initBaseAttrToModule() {
-      if (this.propData.MenuPaneList && this.propData.MenuPaneList.length > 0) {
+      if (
+        this.propData.MenuPaneList &&
+        this.propData.MenuPaneList.length > 0 &&
+        Object.keys(this.propData.MenuPaneList[0]).length > 0
+      ) {
         this.selectedKeys = [this.propData.MenuPaneList[0].key];
         this.propData.MenuPaneList.forEach((item) => {
           if (item.defaultSelectKey) {
@@ -290,6 +294,11 @@ export default {
           {
             key: "2",
             name: "菜单demo2",
+            defaultSelectKey: false,
+          },
+          {
+            key: "3",
+            name: "菜单demo3",
             defaultSelectKey: false,
           },
         ];
