@@ -60,7 +60,7 @@
 
 <script>
 export default {
-  name: "DataSourceMenu",
+  name: "IDataSourceMenu",
   data() {
     return {
       moduleObject: {},

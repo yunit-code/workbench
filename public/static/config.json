@@ -14,7 +14,7 @@
         {
             "classId": "idm.componet.workbench.dataSourceMenu",
             "comName": "数据源菜单",
-            "className": "DataSourceMenu",
+            "className": "IDataSourceMenu",
             "comType": "common",
             "comLangue": "vue"
         }
