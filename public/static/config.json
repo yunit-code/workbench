@@ -17,6 +17,13 @@
             "className": "IDataSourceMenu",
             "comType": "common",
             "comLangue": "vue"
+        },
+        {
+            "classId": "idm.componet.workbench.interfaceDebug",
+            "comName": "接口调试",
+            "className": "IInterfaceDebug",
+            "comType": "common",
+            "comLangue": "vue"
         }
     ]
 }
