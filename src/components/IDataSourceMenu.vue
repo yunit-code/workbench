@@ -99,7 +99,6 @@ export default {
      */
     propDataWatchHandle(propData) {
       this.propData = propData.compositeAttr || {};
-      this.innerAttr = propData.innerAttr || [];
       this.initAttrToModule();
       console.log("组件内属性发生变化，变化后====》", this.propData);
     },
