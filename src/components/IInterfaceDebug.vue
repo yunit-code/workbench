@@ -133,6 +133,7 @@ export default {
     this.moduleObject = this.$root.moduleObject;
     // console.log(this.moduleObject)
     this.initAttrToModule();
+    this.getParams();
   },
   mounted() {},
   destroyed() {},
@@ -146,6 +147,7 @@ export default {
       }
     },
     handleCheck() {
+      if (this.dataSource.length === 0) return false;
       const params = this.getParams();
       if (!params) {
         return IDM.message.error("参数值格式不正确，请按照标准JSON格式填写！");
@@ -388,7 +390,6 @@ export default {
      */
     initAttrToModule() {
       this.convertAttrToStyleObject();
-      this.getInfo();
     },
   },
 };
