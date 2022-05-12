@@ -1,7 +1,7 @@
 {
-    "classId": "idm.componet.workbench.text",
-    "comName": "文本",
-    "className": "IText",
+    "classId": "idm.componet.workbench.workbenchCrad",
+    "comName": "工作台卡片",
+    "className": "IWorkbenchCrad",
     "comType": "common",
     "comLangue": "vue",
     "compositeAttr": [
@@ -43,36 +43,29 @@
         {
             "type": "table",
             "text": "操作按钮选项设置",
-            "bindKey": "buttonOptionList",
+            "bindKey": "buttonList",
             "tabText": "按钮[index]",
             "children": [
                 {
                     "type": "input",
                     "layoutType": "inline",
-                    "text": "按钮文字",
-                    "desc":"设置按钮显示的文字",
-                    "bindKey": "buttonText",
-                    "placeholder":"示例：发送"
-                },
-                {
-                    "type": "font",
-                    "layoutType": "block",
-                    "text": "按钮文字字体",
-                    "bindKey": "buttonTextFont"
+                    "text": "按钮名称",
+                    "bindKey": "buttonName",
+                    "default": ""
                 },
                 {
                     "type": "actionSelect",
                     "layoutType": "block",
-                    "text": "自定义函数提示信息",
-                    "bindKey": "buttonTipFunction",
-                    "desc": "当数据加载的时候会调用此处自定义函数返回要提示的内容，接收参数为格式为{customParam:自定义的,currentKey,configObject:当前图标配置项,fieldConfigObject:当前字段配置项,itemObject:整条数据对象,tabObject:当前tab数据对象}",
-                    "multiple": false
+                    "text": "自定义函数",
+                    "bindKey": "buttonClickFunction",
+                    "desc": "按钮需要自定义的时候可以使用这里设置自定义函数执行动作，接收参数为格式为{...自定义的,itemData:整条数据对象}",
+                    "multiple": true
                 }
             ]
         },
         {
             "type": "group",
-            "text": "页面样式设置",
+            "text": "组件样式设置",
             "desc": "点击？查看样式设置用法指南",
             "helpUrl": "",
             "children": [
@@ -531,6 +524,13 @@
                     "text": "接口地址",
                     "bindKey": "customInterfaceUrl",
                     "desc": "用于获取数据源的接口地址，请按照统一标准的返回格式返回文本数据，格式如下：{\"code\":\"200\",\"data\":\"\",...}"
+                },
+                {
+                    "type": "treeSelect",
+                    "layoutType": "inline",
+                    "text": "数据源",
+                    "bindKey": "dataSource",
+                    "dataSourceUrl":""
                 }
             ]
         }

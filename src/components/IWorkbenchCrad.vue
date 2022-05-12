@@ -13,7 +13,7 @@
     class="i-workbench-card-outer"
   >
     <div class="i-workbench-card-item" v-for="(item,index) in listData" :key="`workbench-card-${index}`">
-      <div class="card-item-ad">
+      <div class="card-item-ad" :class="{'publish':item.publish!=='0'}">
         <span class="card-item-tip" v-if="item.isTip"><a-icon type="bell" />内容有更新,请重新发布</span>
       </div>
       <div class="card-item-des">
@@ -30,10 +30,10 @@
               <a-icon type="more" />
             </a>
             <template slot="overlay">
-              <a-menu @click="dropdownClick">
-                <a-menu-item key="1">1st menu item</a-menu-item>
-                <a-menu-item key="2">2nd menu item</a-menu-item>
-                <a-menu-item key="3">3rd menu item</a-menu-item>
+              <a-menu @click="dropdownClick" v-if="propData.buttonList&&propData.buttonList.length>0">
+                  <template v-for="(bitem,bindex) in propData.buttonList" >
+                    <a-menu-item  v-if="bitem.buttonName" :key="bindex" @click="clickButtonHandle(item,bitem)">{{bitem.buttonName}}</a-menu-item >
+                  </template>
               </a-menu>
             </template>
           </a-dropdown>
@@ -80,7 +80,7 @@ export default {
 					"comId": "2",
 					"comName": "统一待办",
 					"publish":"1"
-        }
+        },
       ];
     }
     if(this.moduleObject.env ===  "production"){
@@ -90,6 +90,35 @@ export default {
   mounted() {},
   destroyed() {},
   methods: {
+    /**
+     * 自定义按钮回调
+     */
+    clickButtonHandle(itemData,buttonItem){
+      let that = this;
+      if(this.moduleObject.env=="develop"){
+        //开发模式下不执行此事件
+        return;
+      }
+      //获取所有的URL参数、页面ID（pageId）、以及所有组件的返回值（用范围值去调用IDM提供的方法取出所有的组件值）
+      let urlObject = window.IDM.url.queryObject(),
+      pageId = window.IDM.broadcast&&window.IDM.broadcast.pageModule?window.IDM.broadcast.pageModule.id:"";
+      //自定义函数
+      /**
+       * [
+       * {name:"",param:{}}
+       * ]
+       */
+      var clickFunction = buttonItem.buttonClickFunction;
+      clickFunction&&clickFunction.forEach(item=>{
+        window[item.name]&&window[item.name].call(this,{
+          urlData:urlObject,
+          pageId,
+          customParam:item.param,
+          _this:this,
+          itemData
+        });
+      })
+    },
     /**
      * 初始化数据
      */
@@ -144,8 +173,10 @@ export default {
               styleObject[key]=element;
               break;
             case "cardWidth":
+              cardStyleObject["width"]=element;
+              break;
             case "cardHeight":
-              cardStyleObject[key]=element;
+              cardStyleObject["height"]=element;
               break;
             case "bgColor":
               if(element&&element.hex8){
@@ -317,7 +348,7 @@ export default {
               cardStyleObject["border-bottom-left-radius"]=element.radius.leftBottom.radius+element.radius.leftBottom.radiusUnit;
               cardStyleObject["border-bottom-right-radius"]=element.radius.rightBottom.radius+element.radius.rightBottom.radiusUnit;
               break;
-            case "font":
+            case "cardFont":
               cardStyleObject["font-family"]=element.fontFamily;
               if(element.fontColors.hex8){
                 cardStyleObject["color"]=element.fontColors.hex8;
@@ -351,24 +382,33 @@ export default {
 	font-family: PingFangSC-Regular;
 	font-size: 16px;
 	color: #333333;
+  flex-wrap: wrap;
 
 	.i-workbench-card-item {
+    padding: 14px;
 		width: 260px;
     height: 370px;
     background-color: #fff;
     margin-right: 20px;
 		border-radius: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
 		
 		.card-item-ad {
       position: relative;
-			height: 80%;
+			height:75%;
 			background-color: rgb(224,238,255);
 			width: 100%;
 			border-radius: 10px;
+      background: url("~@/assets/un-publish.png") no-repeat center;
+      border-bottom: #ccc 1px dashed;
+
+      &.publish {
+        background: url("~@/assets/publish.png") no-repeat center;
+      }
 
       .card-item-tip {
         position: absolute;
-        top: 14px;
+        top: 0;
         left: 50%;
         transform: translateX(-50%);
         font-size: 12px;
@@ -387,6 +427,8 @@ export default {
 			display: flex;
 			height: 40px;
 			line-height: 40px;
+      margin-top: 14px;
+      
 
 			.des-publish {
 				width: 80px;
