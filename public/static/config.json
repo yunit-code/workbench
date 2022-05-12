@@ -10,6 +10,13 @@
             "className": "IText",
             "comType": "common",
             "comLangue": "vue"
+        },
+        {
+            "classId": "idm.componet.workbench.iWorkbenchCrad",
+            "comName": "工作台卡片",
+            "className": "IWorkbenchCrad",
+            "comType": "common",
+            "comLangue": "vue"
         }
     ]
 }
