@@ -11,7 +11,8 @@
     "ant-design-vue": "^1.7.6",
     "core-js": "^3.6.5",
     "sass-loader": "^8.0.2",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-json-viewer": "^2.2.22"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -22,8 +23,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.32.8",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11",
-    "svg-sprite-loader": "^4.1.6"
+    "svg-sprite-loader": "^4.1.6",
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,
@@ -39,12 +40,12 @@
     },
     "rules": {
       "no-unused-vars": 0,
-      "no-empty":0
+      "no-empty": 0
     },
-    "globals":{
+    "globals": {
       "IDM": true,
       "$": true,
-      "_":true
+      "_": true
     }
   },
   "browserslist": [

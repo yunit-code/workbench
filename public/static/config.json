@@ -17,6 +17,20 @@
             "className": "IWorkbenchCrad",
             "comType": "common",
             "comLangue": "vue"
+        },
+        {
+            "classId": "idm.componet.workbench.dataSourceMenu",
+            "comName": "数据源菜单",
+            "className": "IDataSourceMenu",
+            "comType": "common",
+            "comLangue": "vue"
+        },
+        {
+            "classId": "idm.componet.workbench.interfaceDebug",
+            "comName": "接口调试",
+            "className": "IInterfaceDebug",
+            "comType": "common",
+            "comLangue": "vue"
         }
     ]
 }
