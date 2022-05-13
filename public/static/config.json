@@ -12,9 +12,9 @@
             "comLangue": "vue"
         },
         {
-            "classId": "idm.componet.workbench.workbenchCrad",
+            "classId": "idm.componet.workbench.workbenchCard",
             "comName": "工作台卡片",
-            "className": "IWorkbenchCrad",
+            "className": "IWorkbenchCard",
             "comType": "common",
             "comLangue": "vue"
         },
