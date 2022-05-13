@@ -506,6 +506,14 @@
                     "bindKey": "cardBorder"
                 },
                 {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "阴影样式",
+                    "desc":"填写格式如下：10px 10px 5px #888888，更多请点击查看详细填写说明",
+                    "bindKey": "cardBoxShadow",
+                    "default":"0px 0px 3px rgba(0,0,0,0.1)"
+                },
+                {
                     "type": "font",
                     "layoutType": "block",
                     "text": "文字",

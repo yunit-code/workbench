@@ -333,6 +333,9 @@ export default {
               //背景模式
               cardStyleObject["background-attachment"] = element;
               break;
+            case "cardBoxShadow":
+              cardStyleObject["box-shadow"] = element;
+              break;
             case "border":
               if (element.border.top.width > 0) {
                 styleObject["border-top-width"] =
