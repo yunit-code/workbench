@@ -20,27 +20,18 @@
       "desc": "提供设置组件能达到展示效果的基本属性设置信息",
       "children": [
         {
-          "type": "radio",
-          "layoutType": "inline",
-          "text": "请求方式",
-          "bindKey": "requestType",
-          "dictionary": [
-            {
-              "label": "POST",
-              "value": "post"
-            },
-            {
-              "label": "GET",
-              "value": "get"
-            }
-          ],
-          "default": "post"
+          "type": "textarea",
+          "layoutType": "block",
+          "text": "获取参数API",
+          "bindKey": "infoUrl",
+          "placeholder": "请填写表达式，@[url('url参数的名称')]"
         },
         {
           "type": "textarea",
           "layoutType": "block",
-          "text": "接口信息API",
-          "bindKey": "infoUrl"
+          "text": "调试验证API",
+          "bindKey": "checkUrl",
+          "placeholder": "请填写表达式，@[url('url参数的名称')]"
         },
         {
           "type": "input",

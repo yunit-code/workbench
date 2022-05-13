@@ -7,6 +7,10 @@ import 'ant-design-vue/lib/input/style/css';
 import 'ant-design-vue/lib/icon/style/css';
 import 'ant-design-vue/lib/button/style/css';
 import 'ant-design-vue/lib/spin/style/css';
+import 'ant-design-vue/lib/card/style/css';
+import 'ant-design-vue/lib/tag/style/css';
+import 'ant-design-vue/lib/popover/style/css';
+import 'ant-design-vue/lib/empty/style/css';
 import {
   Menu,
   Table,
@@ -14,8 +18,11 @@ import {
   Icon,
   Button,
   Spin,
+  Card,
+  Tag,
+  Popover,
+  Empty
 } from 'ant-design-vue';
-import JsonViewer from 'vue-json-viewer';
 
 /* v1.1.3+ registration methods */
 Vue.use(Menu);
@@ -24,4 +31,7 @@ Vue.use(Input);
 Vue.use(Icon);
 Vue.use(Button);
 Vue.use(Spin);
-Vue.use(JsonViewer);
+Vue.use(Card);
+Vue.use(Tag);
+Vue.use(Popover);
+Vue.use(Empty);

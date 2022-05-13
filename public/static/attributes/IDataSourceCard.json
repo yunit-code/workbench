@@ -1,0 +1,227 @@
+{
+    "classId": "idm.componet.console.dataSourceCard",
+    "comName": "数据源卡片",
+    "className": "IDataSourceCard",
+    "comType": "common",
+    "comLangue": "vue",
+    "compositeAttr": [
+        {
+            "type": "input",
+            "layoutType": "inline",
+            "text": "唯一标识",
+            "bindKey": "ctrlId",
+            "disabled": true,
+            "default": "@[packageid]",
+            "desc": "",
+            "helpUrl": ""
+        },
+        {
+            "type": "group",
+            "text": "基本属性",
+            "desc": "提供设置组件能达到展示效果的基本属性设置信息",
+            "children": [
+                {
+                    "type": "textarea",
+                    "layoutType": "inline",
+                    "text": "为空描述",
+                    "bindKey": "emptyDescription",
+                    "desc": "内容为空的时候描述文字提示",
+                    "default": "暂无数据",
+                    "placeholder": "示例：暂无数据"
+                },
+                {
+                    "type": "switch",
+                    "layoutType": "inline",
+                    "text": "显示当页",
+                    "bindKey": "showCurrentPage",
+                    "desc": "设置是否只显示当前一页的数据，设置为否则是保留之前加载的数据",
+                    "default": true
+                },
+                {
+                    "type": "radio",
+                    "layoutType": "inline",
+                    "text": "触发行为",
+                    "bindKey": "trigger",
+                    "desc": "右下角更多操作触发行为",
+                    "dictionary": [
+                        {
+                            "label": "悬停",
+                            "value": "hover"
+                        },
+                        {
+                            "label": "点击",
+                            "value": "click"
+                        }
+                    ],
+                    "default": "hover"
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "text": "卡片样式设置",
+            "desc": "点击？查看样式设置用法指南",
+            "helpUrl": "",
+            "children": [
+                {
+                    "type": "box",
+                    "layoutType": "block",
+                    "text": "内外边距",
+                    "bindKey": "box"
+                },
+                {
+                    "type": "inlineGroup",
+                    "text": "宽高",
+                    "children": [
+                        {
+                            "type": "input",
+                            "layoutType": "block",
+                            "text": "宽",
+                            "desc": "填写auto则为自适应，或者使用px、%、vw等单位，比如100%、100px、100vw等等",
+                            "bindKey": "width",
+                            "width": "60px",
+                            "default": "285px"
+                        },
+                        {
+                            "type": "input",
+                            "layoutType": "block",
+                            "text": "高",
+                            "desc": "填写auto则为自适应，或者使用px、%、vh等单位，比如100%、100px、100vh等等",
+                            "bindKey": "height",
+                            "width": "60px",
+                            "default": "150px"
+                        }
+                    ]
+                },
+                {
+                    "type": "border",
+                    "layoutType": "block",
+                    "text": "边框",
+                    "bindKey": "border"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "阴影",
+                    "desc": "对应box-shadow样式属性",
+                    "bindKey": "shadow",
+                    "default": "none"
+                },
+                {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "浮动阴影",
+                    "desc": "对应box-shadow样式属性",
+                    "bindKey": "hoverShadow",
+                    "default": "0px 0px 15px rgba(0, 0, 0, 0.15)"
+                },
+                {
+                    "type": "colorPicker",
+                    "layoutType": "inline",
+                    "text": "背景色",
+                    "bindKey": "bgColor",
+                    "placeholder": "请选择颜色",
+                    "default": {}
+                },
+                {
+                    "type": "font",
+                    "layoutType": "block",
+                    "text": "标题文字",
+                    "bindKey": "font"
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "text": "高级",
+            "desc": "点击？查看高级设置用法指南",
+            "children": [
+                {
+                    "type": "table",
+                    "text": "右下角更多操作",
+                    "bindKey": "operationList",
+                    "tabText": "操作[index]",
+                    "children": [
+                        {
+                            "type": "input",
+                            "layoutType": "inline",
+                            "text": "操作标识",
+                            "bindKey": "key"
+                        },
+                        {
+                            "type": "input",
+                            "layoutType": "inline",
+                            "text": "操作名称",
+                            "bindKey": "text"
+                        },
+                        {
+                            "type": "iconSelect",
+                            "layoutType": "inline",
+                            "text": "显示图标",
+                            "bindKey": "icon",
+                            "placeholder": "请选择"
+                        },
+                        {
+                            "type": "select",
+                            "layoutType": "inline",
+                            "text": "事件类型",
+                            "bindKey": "operationClickType",
+                            "desc":"点击操作时的事件类型，可以选择内置的处理函数，也可以使用自定义编写函数",
+                            "dictionary": [
+                                {
+                                    "label": "无事件",
+                                    "value": "none"
+                                },
+                                {
+                                    "label": "删除",
+                                    "value": "remove"
+                                },
+                                {
+                                    "label": "自定义函数",
+                                    "value": "custom"
+                                }
+                            ],
+                            "default": "none"
+                        },
+                        {
+                            "type": "textarea",
+                            "layoutType": "inline",
+                            "text": "提示内容",
+                            "bindKey": "removeConfirmFont",
+                            "desc": "设置执行后续动作前的确认弹出框提示的文字内容，如果为空则不弹出直接执行后续动作",
+                            "default": "确定要移除吗？",
+                            "placeholder": "示例：确定要移除吗？",
+                            "display":"@[buttonHandleType=='remove']"
+                        },
+                        {
+                            "type": "textarea",
+                            "layoutType": "block",
+                            "text": "接口地址",
+                            "desc": "删除的调用接口地址",
+                            "bindKey": "removeUrl",
+                            "display":"@[buttonHandleType=='remove']"
+                          },
+                          {
+                            "type": "actionSelect",
+                            "layoutType": "block",
+                            "text": "删除后自定义函数",
+                            "bindKey": "removeRunLaterFunction",
+                            "desc": "执行删除内会调用设置的自定义函数，接收参数为格式为上面执行提交的返回结果{...自定义的，resData}",
+                            "multiple": true,
+                            "display":"@[buttonHandleType=='remove']"
+                        },
+                        {
+                            "type": "actionSelect",
+                            "layoutType": "block",
+                            "text": "自定义函数",
+                            "bindKey": "operationClickFunction",
+                            "desc": "设置自定义函数执行操作，接收参数为格式为{...自定义的,itemData:整条数据对象}",
+                            "multiple": true,
+                            "display":"@[buttonHandleType=='custom']"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
