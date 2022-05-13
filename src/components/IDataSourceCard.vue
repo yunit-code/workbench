@@ -14,22 +14,22 @@
     <a-card v-for="item in cardList" :key="item.id" :bordered="false">
       <template slot="title">
         <div class="title">
-          <!-- <a-tooltip placement="topLeft" :title="item.title">
+          <!-- <a-tooltip placement="topLeft" :title="item.name">
             <div style="overflow: hidden; text-overflow: ellipsis">
-              {{ item.title }}
+              {{ item.name }}
             </div>
           </a-tooltip> -->
-          <div style="white-space: normal">{{ item.title }}</div>
+          <div style="white-space: normal">{{ item.name }}</div>
           <a-tag
             style="margin: 0 0 0 4px"
-            :color="getTagColor(item.typeCode)"
-            >{{ item.type }}</a-tag
+            :color="getTagColor(item.dataMode)"
+            >{{ item.dataModeText }}</a-tag
           >
         </div>
       </template>
       <div class="content">
         <a-icon type="user" />
-        <div class="code">{{ item.code }}</div>
+        <div class="code">{{ item.createUserName }}</div>
         <a-popover
           v-if="
             propData.operationList &&
@@ -47,7 +47,7 @@
                 class="element"
                 v-for="operation in propData.operationList"
                 :key="operation.key"
-                @click="handleOperationClick(item)"
+                @click="handleOperationClick(item, operation)"
               >
                 <svg
                   class="icon"
@@ -95,13 +95,19 @@ export default {
     ) {
       //开发模式下给例子数据
       this.cardList = [
-        { id: '1', title: "测试", code: "123", type: "主动请求", typeCode: "1" },
         {
-          id: '2',
-          title: "测试2测试测试测试测试测试测试测试测试",
-          code: "erty32-4rt506-tyti-uvyd-erwql-dkfo1",
-          type: "接收推送",
-          typeCode: "2",
+          id: "1",
+          name: "展示用例1",
+          createUserName: "系统管理员",
+          dataModeText: "主动请求",
+          dataMode: "2",
+        },
+        {
+          id: "2",
+          name: "展示用例2",
+          createUserName: "系统管理员",
+          dataModeText: "接收推送",
+          dataMode: "1",
         },
       ];
     }
@@ -111,8 +117,8 @@ export default {
   methods: {
     getTagColor(code) {
       const colorSet = {
-        1: "blue",
-        2: "orange",
+        1: "orange",
+        2: "blue",
       };
       return colorSet[code];
     },
@@ -267,16 +273,15 @@ export default {
         styleObject
       );
     },
-    handleOperationClick(itemData) {
-      if (this.propData.operationClickType === 'remove') {
-        this.handleRemove(itemData)
-      }
-      else if (
-        this.propData.operationClickType === 'custom' &&
-        this.propData.operationClickFunction &&
-        this.propData.operationClickFunction.length > 0
+    handleOperationClick(itemData, operation) {
+      if (operation.operationClickType === "remove") {
+        this.handleRemove(itemData, operation);
+      } else if (
+        operation.operationClickType === "custom" &&
+        operation.operationClickFunction &&
+        operation.operationClickFunction.length > 0
       ) {
-        this.propData.operationClickFunction.forEach((item) => {
+        operation.operationClickFunction.forEach((item) => {
           window[item.name] &&
             window[item.name].call(this, {
               customParam: item.param,
@@ -286,52 +291,63 @@ export default {
       }
     },
     getCardList(data) {
+      let filedExp = this.propData.dataFiled;
+      let list = data;
+      if (filedExp) {
+        list = window.IDM.express.replace.call(
+          this,
+          "@[" + filedExp + "]",
+          data
+        );
+      }
       if (this.propData.showCurrentPage) {
-        this.cardList = data.rows;
+        this.cardList = list;
       } else {
-        this.cardList = [...this.cardList, ...data.rows];
+        this.cardList = [...this.cardList, ...list];
       }
     },
-    handleRemove(data) {
+    handleRemove(data, operation) {
       let that = this;
-      if(!this.propData.removeConfirmFont){
-        that.removeItemLater(data);
+      if (!operation.removeConfirmFont) {
+        that.removeItemLater(data, operation);
         return;
       }
       this.$confirm({
-        title: this.propData.removeConfirmFont,
+        title: operation.removeConfirmFont,
         okText: "确定",
         cancelText: "取消",
         onOk() {
-          that.removeItemLater(data);
+          that.removeItemLater(data, operation);
         },
-        onCancel() {
-        }
+        onCancel() {},
       });
     },
-    removeItemLater(data) {
+    removeItemLater(data, operation) {
       let that = this;
-      this.propData.removeUrl && IDM.http.post(
-        this.propData.removeUrl,
-        {id: data.id}
-      )
-        .done((result) => {
-          //调用后续自定义函数
-          that.removeRunLaterHandle(result);
-        })
-        .error((err) => {
-          IDM.message.error("请求异常！");
-        });
-    },
-    removeRunLaterHandle(result) {
-      if(this.propData.removeRunLaterFunction&&this.propData.removeRunLaterFunction.length>0){
-        const removeRunLaterFunction = this.propData.removeRunLaterFunction;
-        removeRunLaterFunction.forEach(item=>{
-          window[item.name]&&window[item.name].call(this,{
-            customParam:item.param,
-            resData:result
+      operation.removeUrl &&
+        IDM.http
+          .get(operation.removeUrl, { id: data.id })
+          .done((result) => {
+            //调用后续自定义函数
+            that.removeRunLaterHandle(result, operation);
+          })
+          .error((err) => {
+            IDM.message.error("请求异常！");
           });
-        })
+    },
+    removeRunLaterHandle(result, operation) {
+      if (
+        operation.removeRunLaterFunction &&
+        operation.removeRunLaterFunction.length > 0
+      ) {
+        const removeRunLaterFunction = operation.removeRunLaterFunction;
+        removeRunLaterFunction.forEach((item) => {
+          window[item.name] &&
+            window[item.name].call(this, {
+              customParam: item.param,
+              resData: result,
+            });
+        });
       }
     },
     /**

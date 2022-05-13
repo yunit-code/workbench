@@ -38,6 +38,15 @@
                     "default": true
                 },
                 {
+                    "type": "input",
+                    "layoutType": "inline",
+                    "text": "显示字段",
+                    "bindKey": "dataFiled",
+                    "desc": "根据其他组件传输的数据格式指定结果集的字段，比如传输的数据格式为{data:{rows:[{}]}}，则这里应该填写data.rows",
+                    "default": "data.rows",
+                    "placeholder": "示例：data.rows 或者 [0].data[0].rows"
+                },
+                {
                     "type": "radio",
                     "layoutType": "inline",
                     "text": "触发行为",

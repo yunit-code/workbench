@@ -12,6 +12,7 @@ import 'ant-design-vue/lib/tag/style/css';
 import 'ant-design-vue/lib/popover/style/css';
 import 'ant-design-vue/lib/empty/style/css';
 import 'ant-design-vue/lib/dropdown/style/css';
+import 'ant-design-vue/lib/modal/style/css';
 import {
   Menu,
   Table,
@@ -24,6 +25,7 @@ import {
   Popover,
   Empty,
   Dropdown,
+  Modal
 } from 'ant-design-vue';
 
 /* v1.1.3+ registration methods */
@@ -38,3 +40,5 @@ Vue.use(Tag);
 Vue.use(Popover);
 Vue.use(Empty);
 Vue.use(Dropdown);
+Vue.use(Modal);
+Vue.prototype.$confirm = Modal.confirm;
