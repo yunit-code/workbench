@@ -12,6 +12,13 @@
             "comLangue": "vue"
         },
         {
+            "classId": "idm.componet.workbench.workbenchCrad",
+            "comName": "工作台卡片",
+            "className": "IWorkbenchCrad",
+            "comType": "common",
+            "comLangue": "vue"
+        },
+        {
             "classId": "idm.componet.workbench.dataSourceMenu",
             "comName": "数据源菜单",
             "className": "IDataSourceMenu",

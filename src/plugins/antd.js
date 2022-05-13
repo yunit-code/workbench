@@ -11,6 +11,7 @@ import 'ant-design-vue/lib/card/style/css';
 import 'ant-design-vue/lib/tag/style/css';
 import 'ant-design-vue/lib/popover/style/css';
 import 'ant-design-vue/lib/empty/style/css';
+import 'ant-design-vue/lib/dropdown/style/css';
 import {
   Menu,
   Table,
@@ -21,7 +22,8 @@ import {
   Card,
   Tag,
   Popover,
-  Empty
+  Empty,
+  Dropdown,
 } from 'ant-design-vue';
 
 /* v1.1.3+ registration methods */
@@ -35,3 +37,4 @@ Vue.use(Card);
 Vue.use(Tag);
 Vue.use(Popover);
 Vue.use(Empty);
+Vue.use(Dropdown);

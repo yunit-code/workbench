@@ -91,3 +91,9 @@ export {
 export {
     default as LoadingOutline
 } from '@ant-design/icons/lib/outline/LoadingOutline';
+export {
+    default as MoreOutline
+} from '@ant-design/icons/lib/outline/MoreOutline';
+export {
+    default as BellOutline
+} from '@ant-design/icons/lib/outline/BellOutline';
