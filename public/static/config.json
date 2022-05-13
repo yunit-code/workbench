@@ -1,7 +1,7 @@
 {
-    "version": "1.0.0",
-    "lasttime": "2021-04-05 00:36:27",
-    "author": "申龙",
+    "version": "1.1.2",
+    "lasttime": "2022-05-13 00:59:32",
+    "author": "周子正",
     "className": "workbench",
     "module": [
         {
@@ -29,6 +29,13 @@
             "classId": "idm.componet.workbench.interfaceDebug",
             "comName": "接口调试",
             "className": "IInterfaceDebug",
+            "comType": "common",
+            "comLangue": "vue"
+        },
+        {
+            "classId": "idm.componet.workbench.dataSourceCard",
+            "comName": "数据源卡片",
+            "className": "IDataSourceCard",
             "comType": "common",
             "comLangue": "vue"
         }

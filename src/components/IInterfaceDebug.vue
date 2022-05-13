@@ -42,7 +42,7 @@
         <div class="json_box">
           <template v-if="!!responseInfo">
             <div class="info">
-              <template v-if="responseInfo.success">
+              <template v-if="responseInfo.type === 'success'">
                 <a-icon
                   type="check-circle"
                   theme="twoTone"
@@ -59,7 +59,13 @@
                 <span class="text">接口请求失败</span>
               </template>
             </div>
-            <json-viewer :value="responseInfo" copyable
+            <json-viewer
+              :value="
+                responseInfo.type === 'success'
+                  ? responseInfo.data
+                  : responseInfo.message
+              "
+              copyable
               ><template slot="copy">复制</template></json-viewer
             >
           </template>
@@ -70,6 +76,7 @@
 </template>
 
 <script>
+import JsonViewer from "vue-json-viewer";
 const EditableCell = {
   template: `
       <div class="editable-cell">
@@ -99,6 +106,7 @@ export default {
   name: "IInterfaceDebug",
   components: {
     EditableCell,
+    JsonViewer,
   },
   data() {
     return {
@@ -107,7 +115,6 @@ export default {
       pageLoading: false,
       checkLoading: false,
       responseInfo: null,
-      requestInfo: {},
       dataSource: [],
       columns: [
         {
@@ -133,7 +140,7 @@ export default {
     this.moduleObject = this.$root.moduleObject;
     // console.log(this.moduleObject)
     this.initAttrToModule();
-    this.getParams();
+    this.getInfo();
   },
   mounted() {},
   destroyed() {},
@@ -152,7 +159,7 @@ export default {
       if (!params) {
         return IDM.message.error("参数值格式不正确，请按照标准JSON格式填写！");
       }
-      this.sendRequest(this.requestInfo.path, this.requestInfo.type, params);
+      this.sendRequest(params);
     },
     // 从表格中提取传参
     getParams() {
@@ -171,10 +178,19 @@ export default {
       return params;
     },
     // 发送请求
-    sendRequest(path, type, params) {
+    sendRequest(params) {
       this.responseInfo = null;
       this.checkLoading = true;
-      IDM.http[type.toLowerCase()](path, params)
+      IDM.http
+        .post(
+          this.propData.checkUrl,
+          { id: IDM.url.queryString(this.propData.urlParamName), ...params },
+          {
+            headers: {
+              "Content-Type": "application/json;charset=UTF-8",
+            },
+          }
+        )
         .done((result) => {
           this.responseInfo = result;
           this.checkLoading = false;
@@ -361,22 +377,23 @@ export default {
     getInfo() {
       if (!this.propData.infoUrl) return false;
       this.pageLoading = true;
-      IDM.http[this.propData.requestType](
-        IDM.express.replace(this.propData.infoUrl, {}, true)
-      )
+      IDM.http
+        .get(this.propData.infoUrl, {
+          id: IDM.url.queryString(this.propData.urlParamName),
+        })
         .done((result) => {
-          if (result && result.data && result.data.type == "success") {
-            this.requestInfo = {
-              path: result.data.data.path,
-              type: result.data.data.type,
-            };
-            this.dataSource = result.data.data.paramList.map((item) => ({
-              ...item,
-              key: item.param,
-              value: "",
-            }));
+          if (result && result.type == "success") {
+            try {
+              this.dataSource = result.data.paramList.map((item) => ({
+                ...item,
+                key: item.param,
+                value: JSON.stringify(item.value),
+              }));
+            } catch (e) {
+              IDM.message.error("数据格式错误！");
+            }
           } else {
-            IDM.message.error("result.data.type.message");
+            IDM.message.error(result.message);
           }
           this.pageLoading = false;
         })
@@ -446,7 +463,11 @@ export default {
           .jv-container {
             flex-grow: 1;
             overflow-y: scroll;
+
             background-color: transparent;
+          }
+          ::-webkit-scrollbar {
+            display: none;
           }
         }
       }
