@@ -111,10 +111,7 @@ export default {
   data() {
     return {
       moduleObject: {},
-      propData: this.$root.propData.compositeAttr || {
-        infoUrl: '/ctrl/dataSource/getDataSourceInfo?id=@[url("id")]',
-        checkUrl: '/ctrl/dataSource/getDatas?id=@[url("id")]',
-      },
+      propData: this.$root.propData.compositeAttr || {},
       pageLoading: false,
       checkLoading: false,
       responseInfo: null,
@@ -178,17 +175,22 @@ export default {
       } catch (e) {
         return false;
       }
-      console.log(params);
       return params;
     },
     // 发送请求
     sendRequest(params) {
       this.responseInfo = null;
       this.checkLoading = true;
-      IDM.http.post(
-        IDM.express.replace(this.propData.checkUrl, {}, true),
-        params
-      )
+      IDM.http
+        .post(
+          this.propData.checkUrl,
+          { id: IDM.url.queryString(this.propData.urlParamName), ...params },
+          {
+            headers: {
+              "Content-Type": "application/json;charset=UTF-8",
+            },
+          }
+        )
         .done((result) => {
           this.responseInfo = result;
           this.checkLoading = false;
@@ -375,11 +377,11 @@ export default {
     getInfo() {
       if (!this.propData.infoUrl) return false;
       this.pageLoading = true;
-      IDM.http.get(
-        IDM.express.replace(this.propData.infoUrl, {}, true)
-      )
+      IDM.http
+        .get(this.propData.infoUrl, {
+          id: IDM.url.queryString(this.propData.urlParamName),
+        })
         .done((result) => {
-          console.log(result);
           if (result && result.type == "success") {
             try {
               this.dataSource = result.data.paramList.map((item) => ({
@@ -388,7 +390,7 @@ export default {
                 value: JSON.stringify(item.value),
               }));
             } catch (e) {
-              console.error(e);
+              IDM.message.error("数据格式错误！");
             }
           } else {
             IDM.message.error(result.message);
@@ -461,11 +463,11 @@ export default {
           .jv-container {
             flex-grow: 1;
             overflow-y: scroll;
-            
+
             background-color: transparent;
           }
           ::-webkit-scrollbar {
-              display: none;
+            display: none;
           }
         }
       }

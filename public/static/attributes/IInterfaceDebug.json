@@ -20,6 +20,14 @@
       "desc": "提供设置组件能达到展示效果的基本属性设置信息",
       "children": [
         {
+          "type": "input",
+          "layoutType": "inline",
+          "text": "URL参数",
+          "bindKey": "urlParamName",
+          "desc": "从URL上获取数据源id，请填写对应的参数名称",
+          "default": "id"
+        },
+        {
           "type": "textarea",
           "layoutType": "block",
           "text": "获取参数API",
