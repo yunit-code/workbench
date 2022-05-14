@@ -32,20 +32,24 @@
           "layoutType": "block",
           "text": "获取参数API",
           "bindKey": "infoUrl",
-          "placeholder": "请填写表达式，@[url('url参数的名称')]"
+          "desc": "进入页面时，查询接口信息的API",
+          "default": "/ctrl/dataSource/getDataSourceInfo"
         },
         {
           "type": "textarea",
           "layoutType": "block",
           "text": "调试验证API",
           "bindKey": "checkUrl",
-          "placeholder": "请填写表达式，@[url('url参数的名称')]"
+          "desc": "点击验证时，调用的API",
+          "default": "/ctrl/dataSource/getDatas"
         },
         {
           "type": "input",
           "layoutType": "block",
           "text": "表格滚动区域高度",
-          "bindKey": "scrollY"
+          "bindKey": "scrollY",
+          "desc": "若表格行数较多，应当设置此值，实现内容滚动",
+          "default": 300
         }
       ]
     },
