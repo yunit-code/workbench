@@ -140,7 +140,9 @@ export default {
     this.moduleObject = this.$root.moduleObject;
     // console.log(this.moduleObject)
     this.initAttrToModule();
-    this.getInfo();
+    if (this.moduleObject.env === 'production' || !IDM.env_dev) {
+      this.getInfo();
+    }
   },
   mounted() {},
   destroyed() {},
@@ -179,6 +181,7 @@ export default {
     },
     // 发送请求
     sendRequest(params) {
+      if (!this.propData.checkUrl) return false;
       this.responseInfo = null;
       this.checkLoading = true;
       IDM.http
